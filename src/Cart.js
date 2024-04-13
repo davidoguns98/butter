@@ -1,6 +1,9 @@
 import "./App.css";
 
 function Cart({ cart, setCart }) {
+  const handleCheckout = () => {
+    setCart([]);
+  };
   return (
     <div className=" cart-cont">
       <div className="cart-list">
@@ -16,6 +19,7 @@ function Cart({ cart, setCart }) {
               <h3>{item.name}</h3>
               <p>{item.price}$</p>
               <button
+                className="removeBtn"
                 onClick={(e) => {
                   // remove item from cart
                   cart.splice(index, 1);
@@ -31,8 +35,8 @@ function Cart({ cart, setCart }) {
       </div>
       <div className="total">
         <h1>Total</h1>
-        <p>{cart.reduce((a, b) => a + b.amount, 0)}$</p>
-        <button>Check out</button>
+        <p>{cart.reduce((a, b) => a + b.price, 0)}$</p>
+        <button onClick={handleCheckout}>Check out</button>
       </div>
     </div>
   );

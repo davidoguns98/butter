@@ -6,7 +6,7 @@ function Header({ showing, show }) {
 
   return (
     <div>
-      <div className="container">
+      <div className="d">
         <h1 className="header">WELCOME TO NAIJA FOOD APP</h1>
         {/* view cart button */}
         <button
