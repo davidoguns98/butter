@@ -9,3 +9,12 @@ export const HandleFetch = async function () {
   }
   return data;
 };
+
+export async function createUser(newUser) {
+  const { data, error } = await supabase.from("users").insert([newUser]);
+
+  if (error) {
+    console.error(error);
+    throw new Error("user was not created");
+  }
+}

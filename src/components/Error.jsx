@@ -1,3 +1,4 @@
+import "../App.css";
 function Error({ error }) {
   return (
     <div className="error-cont">

@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 
 function Header({ showing, show }) {
   // host this in butter

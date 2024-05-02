@@ -1,4 +1,4 @@
-import "./App.css";
+import "../App.css";
 
 function Cart({ cart, setCart }) {
   const handleCheckout = () => {

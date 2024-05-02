@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
-import { HandleFetch } from "./Api";
+import { HandleFetch } from "../Api";
 import Cart from "./Cart";
 import Error from "./Error";
+import "../App.css";
+import Loader from "./Loader";
 
 function Product({ toShow }) {
+  const [isLoading, setIsloading] = useState(false);
   const [cart, setCart] = useState([]);
   const [pro, setPro] = useState("");
   const [error, setError] = useState("");
@@ -18,6 +21,7 @@ function Product({ toShow }) {
           console.log(data);
           setPro(data);
           setFiltered(data);
+          setIsloading(false);
         });
       } catch (err) {
         setError(err.message);
@@ -87,6 +91,7 @@ function Product({ toShow }) {
           />
         )}
       </div>
+      {isLoading && <Loader />}
       <div className="food-grid">
         {filtered ? (
           filtered.map((item) => {
