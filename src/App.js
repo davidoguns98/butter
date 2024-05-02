@@ -12,11 +12,11 @@ function App() {
   return (
     <div className="App">
       <Signup />
-
-      <Header showing={setShow} show={show} />
+      <Login />
+      {/* <Header showing={setShow} show={show} />
 
       <Product toShow={show} />
-      <Footer />
+      <Footer /> */}
     </div>
   );
 }
