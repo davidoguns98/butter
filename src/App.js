@@ -8,7 +8,13 @@ import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
-  const queryClient = QueryClient();
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000,
+      },
+    },
+  });
   return (
     <div className="App">
       <QueryClientProvider client={queryClient}>
@@ -29,7 +35,7 @@ function App() {
               duration: 3000,
             },
             error: {
-              duration: 5000,
+              duration: 60 * 1000,
             },
             style: {
               fontSize: "16px",

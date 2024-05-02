@@ -1,27 +1,36 @@
 import { useState } from "react";
 import "../App.css";
 import { useNavigate } from "react-router-dom";
-function Login() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+import { useForm } from "react-hook-form";
+import { findEmail } from "../Api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
-  const handleLogin = () => {
-    navigate("main");
-  };
+function Login() {
+  const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { mutate, isLoading } = useMutation({
+    mutationFn: findEmail,
+    onSuccess: () => {
+      toast.success("Login sucessfull ");
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      navigate("main");
+    },
+  });
+
+  function handleLogin(data) {
+    mutate(data);
+  }
+
   return (
     <div className="login-cont">
       <div className="loginform-cont">
         <h1>Login</h1>
-        <form>
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div>
             <label>Email :</label>
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <input type="email" placeholder="Email" id="email" {...register} />
           </div>
 
           <div>
@@ -29,11 +38,11 @@ function Login() {
             <input
               type="password"
               placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              id="password"
+              {...register}
             />
           </div>
-          <button onClick={handleLogin}>Submit</button>
+          <button disabled={isLoading}>Submit</button>
         </form>
         <p className="login-text">
           You don't have an account?

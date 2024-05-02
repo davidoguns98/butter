@@ -4,52 +4,25 @@ import { createUser } from "../Api";
 import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
-  // const [name, setName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [address, setAddress] = useState("");
-
-  // const [user, setUser] = useState([]);
   const { register, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { mutate, isLoading } = useMutation({
     mutationFn: createUser,
     onSuccess: () => {
-      toast.success("newUser created sucessfully");
+      toast.success("Account created sucessfully");
       queryClient.invalidateQueries({ queryKey: ["users"] });
       reset();
+      navigate("/");
     },
     onError: (err) => toast.error(err.message),
   });
 
   function onSubmit(data) {
     mutate(data);
-    // const newUser = {
-    //   name,
-    //   email,
-    //   password,
-    //   phoneNumber,
-    //   address,
-    // };
-    // setUser((prevUsers) => [...prevUsers, newUser]);
-    // console.log(newUser);
-    // alert(`${user.name} account has been created successfully `);
-    // setUser(async (newUser) => {
-    //   const { data, error } = await supabase.from("users").insert(newUser);
-    //   alert(`${user.name} account has been created successfully `);
-    //   if (error) {
-    //     throw new Error("new user was not created");
-    //   }
-    // });
-    // setName("");
-    // setEmail("");
-    // setPassword("");
-    // setPhoneNumber("");
-    // setAddress("");
-    //
   }
 
   return (

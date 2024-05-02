@@ -18,3 +18,11 @@ export async function createUser(newUser) {
     throw new Error("user was not created");
   }
 }
+
+export async function findEmail(email) {
+  let { data, error } = await supabase.from("users").select("email");
+  if (error) {
+    console.error(error);
+    throw new Error("email not found");
+  }
+}

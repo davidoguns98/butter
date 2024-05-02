@@ -4,6 +4,7 @@ import Cart from "./Cart";
 import Error from "./Error";
 import "../App.css";
 import Loader from "./Loader";
+import toast from "react-hot-toast";
 
 function Product({ toShow }) {
   const [isLoading, setIsloading] = useState(false);
@@ -106,12 +107,12 @@ function Product({ toShow }) {
               >
                 <h3>{item.name}</h3>
                 <p>{item.decription}</p>
-                <p>{item.price}$</p>
+                <p>#{item.price}</p>
                 <button
                   className="btn"
                   onClick={() => {
                     // added a function to add the pizza to the cart
-                    alert(`${item.name} has been added to cart`);
+                    toast.success(`${item.name} has been added to cart`);
                     // spread previous values and append new one
                     setCart([...cart, item]);
                     console.log(cart);
